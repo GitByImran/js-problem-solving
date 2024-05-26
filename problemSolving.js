@@ -142,3 +142,90 @@ function search(arr, target, leftIndex, rightIndex) {
 }
 
 console.log(recursiveBinarySearch([-5, 3, 7, 20, 5, 6], 6));
+
+// bubble sort
+
+function bubbleSort(arr) {
+    let swapped
+    do {
+        swapped = false
+        for (let i = 0; i < arr.length - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                let temp = arr[i]
+                arr[i] = arr[i + 1]
+                arr[i + 1] = temp
+                swapped = true
+
+                // [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]]
+                // swapped = true
+            }
+        }
+    } while (swapped)
+    return arr
+}
+
+console.log(bubbleSort([-5, 40, 35, 2, 5, 87, -9]));
+
+// insertion sort
+
+function insertionSort(arr) {
+    for (let i = 1; i < arr.length; arr++) {
+        let numberToInsert = arr[i]
+        let j = i - 1
+
+        while (j >= 0 && arr[j] === numberToInsert) {
+            arr[j + 1] = arr[j]
+            j = j - 1
+        }
+    }
+    return arr
+}
+
+insertionSort([-5, 40, 35, 2, 5, 87, -9])
+
+//quick sort
+
+function quickSort(arr) {
+    if (arr.length < 2) {
+        return arr
+    }
+    let pivot = arr[arr.length - 1], right = [], left = []
+    console.log('pivot: ', pivot);
+    for (let i = 0; i < arr.length - 1; i++) {
+        if (arr[i] < pivot) {
+            left.push(arr[i])
+        } else {
+            right.push(arr[i])
+        }
+    }
+    return [...quickSort(left), pivot, ...quickSort(right)]
+}
+
+console.log(quickSort([-5, 40, 35, 2, 5, 87, -9]));
+
+//merge sort
+
+function mergeSort(arr) {
+    if (arr.length < 2) {
+        return arr;
+    }
+    const mid = Math.floor(arr.length / 2);
+    const leftArray = arr.slice(0, mid);
+    const rightArray = arr.slice(mid);
+    return merge(mergeSort(leftArray), mergeSort(rightArray));
+}
+
+function merge(leftArray, rightArray) {
+    const sortedArray = [];
+
+    while (leftArray.length && rightArray.length) {
+        if (leftArray[0] <= rightArray[0]) {
+            sortedArray.push(leftArray.shift());
+        } else {
+            sortedArray.push(rightArray.shift());
+        }
+    }
+    return [...sortedArray, ...leftArray, ...rightArray];
+}
+
+console.log(mergeSort([-5, 40, 35, 2, 5, 87, -9])); 
